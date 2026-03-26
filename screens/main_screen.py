@@ -34,9 +34,26 @@ class MainScreen(ctk.CTkFrame):
                                       fg_color="#e74c3c", hover_color="#c0392b")
         self.btn_exit.grid(row=3, column=0, padx=40, pady=20, sticky="ew")
 
+        # Tables Button -> Goes to Table Floor Plan
+        self.btn_tables = ctk.CTkButton(self, text="Available Tables", 
+                                    command=self.show_tables_layout)
+    
+        # Order Button -> Goes to the Menu/Order Screen
+        self.btn_order = ctk.CTkButton(self, text="Create New Order", 
+                                   command=self.show_order_menu)
+
     def show_tables(self):
         print("Navigating to Tables...")
+        self.controller.show_frame("TablesScreen")
         # self.controller.show_frame("TablesScreen")
+    
+    def show_tables_layout(self):
+        # This must match the name of the Table class in main.py
+        self.controller.show_frame("TablesScreen")
+
+    def show_order_menu(self):
+        # This must match the name of your Order/Menu class
+        self.controller.show_frame("OrderScreen")
 
     def create_order(self):
         print("Navigating to Order Menu...")

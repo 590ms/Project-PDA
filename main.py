@@ -1,9 +1,12 @@
 import customtkinter as ctk
+from screens.tables_screen import TablesScreen
 from screens.main_screen import MainScreen
+from screens.order_screen import OrderScreen
 
 class PDASystem(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.frames = {}
 
         # Window Setup
         self.title("PDA System")
@@ -27,6 +30,18 @@ class PDASystem(ctk.CTk):
         frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("MainScreen")
+        
+        self.frames = {}
+        for F in (MainScreen, TablesScreen): # Add more screens to this tuple as you make them
+            page_name = F.__name__
+            frame = F(parent=self.container, controller=self)
+            self.frames[page_name] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame("MainScreen")
+
+        
+        
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
