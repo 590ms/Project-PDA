@@ -56,8 +56,7 @@ class MainScreen(ctk.CTkFrame):
         self.controller.show_frame("OrderScreen")
 
     def create_order(self):
-        print("Navigating to Order Menu...")
-        # self.controller.show_frame("OrderScreen")
+        self.controller.show_frame("FoodMenuScreen")
 
     def exit_application(self):
         # Clean exit for macOS
