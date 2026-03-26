@@ -1,5 +1,9 @@
 import customtkinter as ctk
 from screens.main_screen import MainScreen
+# 1. IMPORT your other screens here
+from screens.tables_screen import TablesScreen
+from screens.food_menu import FoodMenuScreen
+
 
 class PDASystem(ctk.CTk):
     def __init__(self):
@@ -7,10 +11,9 @@ class PDASystem(ctk.CTk):
 
         # Window Setup
         self.title("PDA System")
-        self.geometry("400x600") # Tall aspect ratio for PDA/Phone style
-        
-        # macOS specific: Set appearance
-        ctk.set_appearance_mode("dark") 
+        self.geometry("400x600")
+
+        ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
 
         # Container to hold all screens
@@ -20,17 +23,23 @@ class PDASystem(ctk.CTk):
         self.container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        
-        # Initialize the MainScreen
-        frame = MainScreen(parent=self.container, controller=self)
-        self.frames["MainScreen"] = frame
-        frame.grid(row=0, column=0, sticky="nsew")
 
+        # 2. INITIALIZE ALL SCREENS
+        # We loop through the classes to save space and avoid repeating code
+        for F in (MainScreen, TablesScreen, FoodMenuScreen):
+            page_name = F.__name__
+            frame = F(parent=self.container, controller=self)
+            self.frames[page_name] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        # Start with the Main Screen
         self.show_frame("MainScreen")
 
     def show_frame(self, page_name):
+        # Now "TablesScreen" and "FoodMenuScreen" exist in this dictionary!
         frame = self.frames[page_name]
         frame.tkraise()
+
 
 if __name__ == "__main__":
     app = PDASystem()
